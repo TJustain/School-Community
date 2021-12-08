@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Lab4.Data;
-using Lab4.Models;
-using Lab4.Models.ViewModels;
+using Assignment2.Data;
+using Assignment2.Models;
+using Assignment2.Models.ViewModels;
 
-namespace Lab4.Controllers
+namespace Assignment2.Controllers
 {
     public class CommunitiesController : Controller
     {
