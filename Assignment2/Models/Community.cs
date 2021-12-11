@@ -23,5 +23,7 @@ namespace Assignment2.Models
         public decimal Budget { get; set; }
 
         public ICollection<CommunityMembership> CommunityMemberships { get; set; }
+
+        public ICollection<Advertisement> Advertisements { get; set; }
     }
 }

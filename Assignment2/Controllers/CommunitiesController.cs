@@ -21,7 +21,7 @@ namespace Assignment2.Controllers
         }
 
         // GET: Communities
-        public async Task<IActionResult> Index(string? ID)
+        public async Task<IActionResult> Index(string ID)
         {
             var viewModel = new CommunityViewModel();
             viewModel.Communities = await _context.Communities
@@ -34,8 +34,7 @@ namespace Assignment2.Controllers
             if (ID != null)
             {
                 ViewData["ID"] = ID;
-                viewModel.CommunityMemberships = viewModel.Communities.Where(
-                    x => x.Id == ID).Single().CommunityMemberships;
+                viewModel.CommunityMemberships = viewModel.Communities.Where( x => x.Id == ID).Single().CommunityMemberships;
             }
 
             return View(viewModel);
@@ -139,7 +138,8 @@ namespace Assignment2.Controllers
             {
                 return NotFound();
             }
-
+            var ads = await _context.Advertisements.Where(m => m.CommunityId == id).ToListAsync();
+                
             var community = await _context.Communities
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (community == null)

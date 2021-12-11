@@ -18,11 +18,14 @@ namespace Assignment2.Data
 
         public DbSet<CommunityMembership> CommunityMemberships { get; set; }
 
+        public DbSet<Advertisement> Advertisements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Community>().ToTable("Community");
             modelBuilder.Entity<CommunityMembership>().HasKey(c => new { c.StudentId, c.CommunityId });
+            modelBuilder.Entity<Advertisement>().ToTable("Advertisement");
 
         }
 
