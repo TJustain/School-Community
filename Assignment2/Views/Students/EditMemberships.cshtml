@@ -5,49 +5,51 @@
 }
 
 <h1>Edit</h1>
+<div>
+    <h4>
+        Student
+    </h4>
 
-<p>
-    Student
-</p>
+    <hr />
 
-<hr />
-
-<table class="row">
-    <tr>
-        <th>
-            Full Name &nbsp;
-        </th>
-        <td>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Full Name
+        </dt>
+        <dd class="col-sm-10">
             @Model.Student.FullName
-        </td>
-    </tr>
-</table>
-
+        </dd>
+    </dl>
+</div>
 <hr />
-
-<table class="row">
-    @foreach (var item in Model.Memberships)
-    {
-        if (!item.IsMember)
-        {
-            <tr>
-                <td>@item.Title </td>
-                <td> <a asp-action="AddMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Register</a></td>
-            </tr>
-        }
-    }
-    @foreach (var item in Model.Memberships)
-    {
-        if (item.IsMember)
-        {
-            <tr>
-                <td>@item.Title </td>
-                <td> <a asp-action="RemoveMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Unregister</a></td>
-            </tr>
-        }
-    }
-</table>
-
+<div class="row">
+    <div class="col-md-4">
+        <table>
+            <tbody>
+                @foreach (var item in Model.Memberships)
+                {
+                    if (!item.IsMember)
+                    {
+                        <tr>
+                            <td>@item.Title </td>
+                            <td> <a asp-action="AddMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Register</a></td>
+                        </tr>
+                    }
+                }
+                @foreach (var item in Model.Memberships)
+                {
+                    if (item.IsMember)
+                    {
+                        <tr>
+                            <td>@item.Title </td>
+                            <td> <a asp-action="RemoveMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Unregister</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

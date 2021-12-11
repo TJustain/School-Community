@@ -146,7 +146,7 @@ namespace Assignment2.Controllers
             {
                 return NotFound();
             }
-
+            community.Advertisements = ads;
             return View(community);
         }
 

@@ -215,10 +215,40 @@ namespace Assignment2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var advertisement = await _context.Advertisements.FindAsync(id);
-            _context.Advertisements.Remove(advertisement);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            var image = await _context.Advertisements.FindAsync(id);
+
+
+            BlobContainerClient containerClient;
+            // Get the container and return a container client object
+            try
+            {
+                containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            }
+            catch (RequestFailedException)
+            {
+                return View("Error");
+            }
+
+            try
+            {
+                // Get the blob that holds the data
+                var blockBlob = containerClient.GetBlobClient(image.FileName);
+                if (await blockBlob.ExistsAsync())
+                {
+                    await blockBlob.DeleteAsync();
+                }
+
+                _context.Advertisements.Remove(image);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (RequestFailedException)
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("Index");
         }
 
         private bool AdvertisementExists(int id)

@@ -25,7 +25,7 @@
         </dd>
     </dl>
 </div>
-    @if (Model.Advertisements.Count > 0)
+    @if (Model.Advertisements.Count != 0)
     { 
     <p>You cannot delete a community untill all associated advertisements are deleted</p>
     <a asp-action="Index">Back to List</a>
