@@ -1,0 +1,53 @@
+﻿@model Assignment2.Models.ViewModels.StudentMembershipViewModel
+
+@{
+    ViewData["Title"] = "EditMemberships";
+}
+
+<h1>Edit</h1>
+
+<p>
+    Student
+</p>
+
+<hr />
+
+<table class="row">
+    <tr>
+        <th>
+            Full Name &nbsp;
+        </th>
+        <td>
+            @Model.Student.FullName
+        </td>
+    </tr>
+</table>
+
+<hr />
+
+<table class="row">
+    @foreach (var item in Model.Memberships)
+    {
+        if (!item.IsMember)
+        {
+            <tr>
+                <td>@item.Title </td>
+                <td> <a asp-action="AddMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Register</a></td>
+            </tr>
+        }
+    }
+    @foreach (var item in Model.Memberships)
+    {
+        if (item.IsMember)
+        {
+            <tr>
+                <td>@item.Title </td>
+                <td> <a asp-action="RemoveMembership" asp-route-studentID="@Model.Student.Id" asp-route-communityID="@item.CommunityId">&nbsp;Unregister</a></td>
+            </tr>
+        }
+    }
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

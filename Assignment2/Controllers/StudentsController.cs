@@ -95,6 +95,59 @@ namespace Assignment2.Controllers
             return View(student);
         }
 
+        public async Task<IActionResult> EditMemberships(int? id)
+        {            
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new StudentMembershipViewModel();
+            var student = await _context.Students
+            .Include(i => i.CommunityMemberships)
+            .ThenInclude(i => i.Community)
+            .Where(i => i.Id == id)
+            .SingleAsync();
+            
+            var memberships = new List<CommunityMembershipViewModel>();
+            var communities = _context.Communities;
+            var studentMemberships = student.CommunityMemberships.Select(i => i.CommunityId);
+
+            
+            foreach(var community in communities)
+            {
+                var member = new CommunityMembershipViewModel();
+                member.CommunityId = community.Id;
+                member.Title = community.Title;
+                member.IsMember = studentMemberships.Contains(community.Id);            
+                memberships.Add(member);
+            }
+            viewModel.Student = student;
+            viewModel.Memberships = memberships;
+
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> RemoveMembership(int studentId, string communityId)
+        {
+            var comunityMembership = new CommunityMembership();
+            comunityMembership.StudentId = studentId;
+            comunityMembership.CommunityId = communityId;
+            _context.CommunityMemberships.Remove(comunityMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditMemberships", new { id = studentId });
+        }
+
+        public async Task<IActionResult> AddMembership(int studentId, string communityId)
+        {
+            var comunityMembership = new CommunityMembership();
+            comunityMembership.StudentId = studentId;
+            comunityMembership.CommunityId = communityId;
+            _context.CommunityMemberships.Add(comunityMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditMemberships", new { id = studentId });
+        }
+
         // POST: Students/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
