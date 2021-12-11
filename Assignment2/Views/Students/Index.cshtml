@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Assignment2.Models.Student>
+﻿@model Assignment2.Models.ViewModels.CommunityViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+               Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnrollmentDate)
+                Enrollment Date
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Students) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
@@ -37,7 +37,9 @@
                 @Html.DisplayFor(modelItem => item.EnrollmentDate)
             </td>
             <td>
+                <a asp-action="Index" asp-route-id="@item.Id">Select</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="EditMemberships" asp-route-id="@item.Id">Edit Membership</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
@@ -45,3 +47,31 @@
 }
     </tbody>
 </table>
+
+@if (Model.CommunityMemberships != null)
+{
+    <h3>
+        com
+    </h3>
+    <table class="table">
+        <tr>
+            @if (Model.CommunityMemberships.Count() != 0)
+            {
+                <th>Comunity</th>
+            }
+            else
+            {
+                <th>No comunity</th>
+            }
+        </tr>
+            @foreach (var item in Model.CommunityMemberships)
+            {
+            <tr>
+                <td>
+                    @item.Community.Title
+                </td>
+            </tr>
+        }
+
+        </table>
+}

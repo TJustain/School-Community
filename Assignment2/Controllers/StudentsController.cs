@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Assignment2.Data;
 using Assignment2.Models;
+using Assignment2.Models.ViewModels;
 
 namespace Assignment2.Controllers
 {
@@ -20,9 +21,22 @@ namespace Assignment2.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? ID)
         {
-            return View(await _context.Students.ToListAsync());
+            var viewModel = new CommunityViewModel();
+            viewModel.Students = await _context.Students
+                  .Include(i => i.CommunityMemberships)
+                  .ThenInclude(i => i.Community)
+                  .AsNoTracking()
+                  .OrderBy(i => i.LastName)
+                  .ToListAsync();
+
+            if (ID != null)
+            {
+                ViewData["ID"] = ID;
+                viewModel.CommunityMemberships = viewModel.Students.Where( x => x.Id == ID).Single().CommunityMemberships;
+            }
+            return View(viewModel);
         }
 
         // GET: Students/Details/5
