@@ -127,6 +127,15 @@ namespace Assignment2.Controllers
 
             return View(viewModel);
         }
+        public async Task<IActionResult> AddMembership(int studentId, string communityId)
+        {
+            var comunityMembership = new CommunityMembership();
+            comunityMembership.StudentId = studentId;
+            comunityMembership.CommunityId = communityId;
+            _context.CommunityMemberships.Add(comunityMembership);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditMemberships", new { id = studentId });
+        }
 
         public async Task<IActionResult> RemoveMembership(int studentId, string communityId)
         {
@@ -134,16 +143,6 @@ namespace Assignment2.Controllers
             comunityMembership.StudentId = studentId;
             comunityMembership.CommunityId = communityId;
             _context.CommunityMemberships.Remove(comunityMembership);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("EditMemberships", new { id = studentId });
-        }
-
-        public async Task<IActionResult> AddMembership(int studentId, string communityId)
-        {
-            var comunityMembership = new CommunityMembership();
-            comunityMembership.StudentId = studentId;
-            comunityMembership.CommunityId = communityId;
-            _context.CommunityMemberships.Add(comunityMembership);
             await _context.SaveChangesAsync();
             return RedirectToAction("EditMemberships", new { id = studentId });
         }

@@ -50,18 +50,18 @@
 
 @if (Model.CommunityMemberships != null)
 {
-    <h3>
-        com
-    </h3>
+<h3>
+    Member of the following communities
+</h3>
     <table class="table">
         <tr>
             @if (Model.CommunityMemberships.Count() != 0)
             {
-                <th>Comunity</th>
+            <th>Name</th>
             }
             else
             {
-                <th>No comunity</th>
+             <th>No membership record exist</th>
             }
         </tr>
             @foreach (var item in Model.CommunityMemberships)

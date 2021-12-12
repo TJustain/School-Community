@@ -8,6 +8,8 @@
 
 <p>
     <a asp-action="Create" asp-route-id="@ViewData["ID"]">Create New</a>
+    <br />
+    <a asp-action="Index" asp-controller="Communities">Back to list</a>
 </p>
 @if (Model.Advertisements.Count() == 0)
 {
