@@ -5,6 +5,9 @@ This project does many things however, the quick overview is:
 A table of students and a table of communities(think of a club) that lets you add students to multiple clubs as well as add advertisement images to the clubs.
 The goal of this project was more backend focused so looking through the code would be a good idea.
 
+The code:
+This project is created using the .NET framwork and uses azure for the databases and publishing.
+
 Room for improvement(either issues or weak points):
 A Home page that's a bit more fleshed out.
 More comments in the code
