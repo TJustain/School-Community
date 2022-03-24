@@ -1,5 +1,5 @@
 Welcome to my school community project
-Here is the link to the website:https://justaintremblay.azurewebsites.net/(Note: this is hosted in azure with my student account so it may not be available in the future)
+Here is the link to the website:https://justaintremblay.azurewebsites.net/ (Note: this is hosted in azure with my student account so it may not be available in the future)
 
 This project does many things however, the quick overview is:
 A table of students and a table of communities(think of a club) that lets you add students to multiple clubs as well as add advertisement images to the clubs.
